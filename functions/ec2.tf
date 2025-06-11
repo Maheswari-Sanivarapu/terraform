@@ -1,25 +1,30 @@
 resource "aws_instance" "ec2_instance" {
+  count = length(var.instances)
   ami           = var.ami_id
   # instance_type = "t2.micro"
   instance_type = var.instance_type
   vpc_security_group_ids = [ aws_security_group.allow_all.id ]
-  tags = var.ec2_tags
+  tags = merge(
+    var.common_tags,
+    {
+      Component = var.instances[count.index]
+      Name = var.instances[count.index]
+
+    }
+  )
 }
 
 resource "aws_security_group" "allow_all" {
     name = var.sg_name
     description = var.sg_description
-    dynamic "ingress"{
-      for_each = var.ingress_ports
-      content {
-        from_port = ingress.value["from_port"]
-        to_port = ingress.value["from_port"]
+    ingress {
+        from_port = var.from_port
+        to_port = var.to_port
         protocol = "-1"
         cidr_blocks = var.cidr_blocks
         ipv6_cidr_blocks = var.ipv6_cidr_blocks
       }
-    }
-
+    
     egress {
         from_port = var.from_port
         to_port = var.to_port
@@ -28,5 +33,11 @@ resource "aws_security_group" "allow_all" {
         ipv6_cidr_blocks = var.ipv6_cidr_blocks
     }
 
-    tags = var.sg_tags
+   tags = merge(
+    var.common_tags,
+    {
+      Name = "allow-all"
+
+    }
+  )
 }
