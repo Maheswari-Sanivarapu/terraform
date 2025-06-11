@@ -1,5 +1,5 @@
 resource "aws_instance" "ec2_instance" {
-  ami                    = data.aws_ami.joindevops.id
+  ami                    = data.aws_ami.mahi.id
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.allow_all.id]
   tags = {
