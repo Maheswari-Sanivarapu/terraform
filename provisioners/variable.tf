@@ -6,7 +6,7 @@ variable "ami_id" {
 
 variable "instance_type" {
   type    = string
-  default = "t3.micro"
+  default = "t2.micro"
 }
 
 variable "ec2_tags" {
@@ -18,7 +18,7 @@ variable "ec2_tags" {
 
 variable "sg_name" {
     type = string
-    default = "vars-file-allow-all" # if we comment this it will take value from command prompt
+    default = "allow-all" # if we comment this it will take value from command prompt
 }
 
 variable "sg_description" {

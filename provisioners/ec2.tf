@@ -5,6 +5,7 @@ resource "aws_instance" "ec2_instance" {
   tags = var.ec2_tags
 
   provisioner "local-exec" {
+    #command = "echo ${self.private_ip} > inventory"
     command = "${self.private_ip} > inventory"
     on_failure = continue # it will ignore errors
   }
@@ -12,6 +13,27 @@ resource "aws_instance" "ec2_instance" {
   provisioner "local-exec" {
     command = "echo 'instance is destroyed'"
     when = destroy
+  }
+  
+  connection {
+    type  = "ssh"
+    user = "ec2-user"
+    password = "DevOps321"
+    host = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo dnf install nginx -y",
+      "sudo systemctl start nginx",
+    ]
+  }
+
+  provisioner "remote-exec" {
+    when = destroy
+    inline = [
+      "sudo systemctl stop nginx"
+    ]
   }
 }
 
