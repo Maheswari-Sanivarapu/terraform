@@ -13,7 +13,7 @@ resource "aws_security_group" "allow_all" {
       for_each = var.ingress_ports
       content {
         from_port = ingress.value["from_port"]
-        to_port = ingress.value["from_port"]
+        to_port = ingress.value["to_port"]
         protocol = "-1"
         cidr_blocks = var.cidr_blocks
         ipv6_cidr_blocks = var.ipv6_cidr_blocks

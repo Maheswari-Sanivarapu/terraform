@@ -56,7 +56,7 @@ variable "environment" {
 }
 
 variable "instances" {
-    # deafult = ["mongodb","redis","mysql","rabbitMQ"]
+    # default = ["mongodb","redis","mysql","rabbitMQ"]
     default = {
         mongodb = "t2.micro" # Here each keyword is assigned for every iteration you will get each.key is equal to each.value
         redis = "t2.micro"
