@@ -9,9 +9,9 @@ data "aws_ami" "mahi" {
   }
 }
 
-# output "ami-id" {
-#   value = data.aws_ami.mahi.id
-# }
+output "ami-id" {
+  value = data.aws_ami.mahi.id
+}
 
 # data "aws_ami" "joindevops" {
 #   owners      = ["973714476881"]
