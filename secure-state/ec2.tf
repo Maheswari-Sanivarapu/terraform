@@ -9,7 +9,7 @@ resource "aws_instance" "ec2_instance" {
 
 
 resource "aws_security_group" "allow_all" {
-    name = "allow-all"
+    name = "allow-alll"
     description = "allow all traffic"
 
     ingress {
